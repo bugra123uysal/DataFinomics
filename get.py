@@ -3,7 +3,14 @@ import requests
 import time
 import pandas as pd
 from bs4 import BeautifulSoup
+import tkinter as tk
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
 
+tü=tk.Tk()
+tü.title("finance")
+tü.geometry("500x500")
 
 
 ım=("https://tradingeconomics.com/matrix")
@@ -34,19 +41,42 @@ if pp.status_code == 200:
 else:
     print("istek başarısız")
    
+time.sleep(1)
+
+stock=[ "AAPL", "MSFT", "GOOGL", "AMZN", "TSLA", "NVDA", "META", "NFLX", "ADBE", "PEP",#abd
+    
+
+    "THYAO.IS", "GARAN.IS", "AKBNK.IS", "ISCTR.IS", "YKBNK.IS", "EREGL.IS", "KRDMD.IS", "TOASO.IS", #ist
+    "TUPRS.IS"]
+def grf(vv ,  stock_name):
+
+  hıss=plt.plot(vv.index , vv["Close"], label=f"{stock}")
+  plt.show()
+    
+for xx in stock:
+    
+    try:
+
+       vv=yf.download(xx, start= "2024-01-01",end="2024-12-31" )
+      
+
+       ff=yf.Ticker(xx)
+       prc=ff.history(period="1d")["Close"].iloc[-1]
+       bas=tk.Button(text=f"{xx}:{prc} ", command=lambda  vv=vv, stock_name=xx:  grf(vv, stock_name) )
+       bas.pack()
+      
+       
+    except Exception as e:
+        print("tekrar")
+    
+
+  
 
 
 
+ 
 
 
-
-stock=yf.Ticker("AAPL")
-print(stock.history(period=('1d')))
-
-
-
-
-time.sleep(2)
 
 
 url=("https://api.coingecko.com/api/v3/coins/markets")
@@ -67,4 +97,5 @@ for xx in bb:
     print(xx["name"],  xx["current_price"])
     
 
-
+   
+tü.mainloop()
