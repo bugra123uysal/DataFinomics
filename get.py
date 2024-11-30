@@ -48,11 +48,25 @@ stock=[ "AAPL", "MSFT", "GOOGL", "AMZN", "TSLA", "NVDA", "META", "NFLX", "ADBE",
 
     "THYAO.IS", "GARAN.IS", "AKBNK.IS", "ISCTR.IS", "YKBNK.IS", "EREGL.IS", "KRDMD.IS", "TOASO.IS", #ist
     "TUPRS.IS"]
-def grf(vv ,  stock_name):
+def grf(vv ,  stock_name, prc):
 
   hıss=plt.plot(vv.index , vv["Close"], label=f"{stock}")
   plt.show()
-    
+
+  reo= form.get()
+  if reo == "":
+   reo=1
+  reo=float(reo)
+  uyth= reo * prc
+  pie=tk.Label(text=f"hisselerim:{uyth}")
+  pie.pack()
+     
+form=tk.Entry()
+form.pack(side="right") 
+
+ 
+
+
 for xx in stock:
     
     try:
@@ -62,19 +76,15 @@ for xx in stock:
 
        ff=yf.Ticker(xx)
        prc=ff.history(period="1d")["Close"].iloc[-1]
-       bas=tk.Button(text=f"{xx}:{prc} ", command=lambda  vv=vv, stock_name=xx:  grf(vv, stock_name) )
+       bas=tk.Button(text=f"{xx}:{prc} ", command=lambda  vv=vv, stock_name=xx , prc=prc:   grf(vv, stock_name, prc) )
        bas.pack()
-      
+
+       
+    
        
     except Exception as e:
         print("tekrar")
-    
-
-  
-
-
-
- 
+       
 
 
 
@@ -87,7 +97,6 @@ params = {
     "per_page": 10,
     "page": 1
 }
-
 
 
 aa=requests.get(url,params=params)
