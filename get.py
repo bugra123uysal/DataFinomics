@@ -7,7 +7,19 @@ import tkinter as tk
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
+from flask import Flask, render_template
 
+app=Flask(__name__)
+@app.route("/")
+def home():
+    return render_template("C:\Users\buğra\Desktop\index.html")
+@app.route("/run-python")
+def runpyt():
+    resul="pythondan bu kod"
+    return f"<h1>{resul} <h1>"
+
+if __name__ == "__main__":
+    app.run(debug=True)
 tü=tk.Tk()
 tü.title("finance")
 tü.geometry("500x500")
@@ -52,19 +64,20 @@ def grf(vv ,  stock_name, prc):
 
   hıss=plt.plot(vv.index , vv["Close"], label=f"{stock}")
   plt.show()
-
+  """ adet' alir """
   reo= form.get()
   if reo == "":
    reo=1
-  reo=float(reo)
+  reo=int(reo)
   uyth= reo * prc
-  pie=tk.Label(text=f"hisselerim:{uyth}")
+  """ stock porfol side """     """ stock name and stock amount  """
+  pie=tk.Label(text=f"= {stock_name}:{uyth} adet: {reo} ")
   pie.pack()
+
+ 
      
 form=tk.Entry()
 form.pack(side="right") 
-
- 
 
 
 for xx in stock:
@@ -85,9 +98,6 @@ for xx in stock:
     except Exception as e:
         print("tekrar")
        
-
-
-
 
 url=("https://api.coingecko.com/api/v3/coins/markets")
 
