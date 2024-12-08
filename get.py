@@ -9,10 +9,11 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from flask import Flask, render_template
 
+""" 
 app=Flask(__name__)
 @app.route("/")
 def home():
-    return render_template("C:\Users\buğra\Desktop\index.html")
+    return render_template('index.html')
 @app.route("/run-python")
 def runpyt():
     resul="pythondan bu kod"
@@ -20,6 +21,8 @@ def runpyt():
 
 if __name__ == "__main__":
     app.run(debug=True)
+ """
+
 tü=tk.Tk()
 tü.title("finance")
 tü.geometry("500x500")
