@@ -1,123 +1,37 @@
-import yfinance as yf
-import requests
-import time
-import pandas as pd
-from bs4 import BeautifulSoup
-import tkinter as tk
-import numpy as np
-import seaborn as sns
-import matplotlib.pyplot as plt
+from bs4 import BeautifulSoup 
+import requests  
+import pandas as pd 
+import numpy as np 
+import seaborn as sns 
+import matplotlib.pyplot as plt 
 from flask import Flask, render_template
 
-""" 
-app=Flask(__name__)
-@app.route("/")
-def home():
-    return render_template('index.html')
-@app.route("/run-python")
-def runpyt():
-    resul="pythondan bu kod"
-    return f"<h1>{resul} <h1>"
 
+app = Flask(__name__, template_folder="templates")
+url="https://www.coingecko.com/tr"
+a= requests.get(url)
+c=BeautifulSoup(a.content , 'html.parser')
+stock=c.find_all("div", class_="tw-text-gray-700 dark:tw-text-moon-100 tw-font-semibold tw-text-sm tw-leading-5" )
+pirice=c.find_all("span", {"data-price-target": "price"} )
+
+
+
+data_stockk=[]
+for stocks , pirices in zip(stock, pirice):
+    stock_name=stocks.text.strip()
+    price_name=pirices.text.strip() 
+    data_stockk.append({"name": stock_name , "price": price_name})
+
+for item in data_stockk:
+    print(f" {item['name']},: {item['price']}")
+
+@app.route("/")  
+def home():
+    
+    return render_template('hm.html', stocks=data_stockk)
+
+   
 if __name__ == "__main__":
     app.run(debug=True)
- """
-
-tü=tk.Tk()
-tü.title("finance")
-tü.geometry("500x500")
 
 
-ım=("https://tradingeconomics.com/matrix")
-
-""" istek gönderme """
-headers = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
-}
-
-pp=requests.get(ım,headers=headers)
-
-if pp.status_code == 200:
-
-
-   yy=BeautifulSoup(pp.content,'html.parser')
-   rr=yy.find("table")
-   if rr:
-    print("bulundu ")
-    row=rr.find_all("tr")
-   for onn in row:
-    cols=onn.find_all("td")
-    data=[col.text.strip() for col in cols]
-    print(data)
-
-   else:
-     print("bulunamadı tekrar deneyiniz")
-
-else:
-    print("istek başarısız")
-   
-time.sleep(1)
-
-stock=[ "AAPL", "MSFT", "GOOGL", "AMZN", "TSLA", "NVDA", "META", "NFLX", "ADBE", "PEP",#abd
-    
-
-    "THYAO.IS", "GARAN.IS", "AKBNK.IS", "ISCTR.IS", "YKBNK.IS", "EREGL.IS", "KRDMD.IS", "TOASO.IS", #ist
-    "TUPRS.IS"]
-def grf(vv ,  stock_name, prc):
-
-  hıss=plt.plot(vv.index , vv["Close"], label=f"{stock}")
-  plt.show()
-  """ adet' alir """
-  reo= form.get()
-  if reo == "":
-   reo=1
-  reo=int(reo)
-  uyth= reo * prc
-  """ stock porfol side """     """ stock name and stock amount  """
-  pie=tk.Label(text=f"= {stock_name}:{uyth} adet: {reo} ")
-  pie.pack()
-
- 
-     
-form=tk.Entry()
-form.pack(side="right") 
-
-
-for xx in stock:
-    
-    try:
-
-       vv=yf.download(xx, start= "2024-01-01",end="2024-12-31" )
-      
-
-       ff=yf.Ticker(xx)
-       prc=ff.history(period="1d")["Close"].iloc[-1]
-       bas=tk.Button(text=f"{xx}:{prc} ", command=lambda  vv=vv, stock_name=xx , prc=prc:   grf(vv, stock_name, prc) )
-       bas.pack()
-
-       
-    
-       
-    except Exception as e:
-        print("tekrar")
-       
-
-url=("https://api.coingecko.com/api/v3/coins/markets")
-
-params = {
-    "vs_currency": "usd",
-    "order": "market_cap_desc",
-    "per_page": 10,
-    "page": 1
-}
-
-
-aa=requests.get(url,params=params)
-bb=aa.json()
-
-for xx in bb:
-    print(xx["name"],  xx["current_price"])
-    
-
-   
-tü.mainloop()
