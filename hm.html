@@ -3,60 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>thondakini görme falan</title>
+    <title>Hisseler</title>
 </head>
 <body>
-    <h1 id="başlık">welcome DataFinomics</h1>
-
-    <button onclick="alert('merhaba')" >tıklayınız </button>
-
-    <table class="styled-table" >
-        <thead>
-        <tr>
-
-            <th>coin</th>
-            <th>hisse</th>
-
+    <p>Hisseler sayfasına hoş geldiniz!</p>
+    <table border="1">
+        <tr>         
+            <th> hisse</th>
+            <th>fiyat</th>
 
         </tr>
-    </thead>
-         <thead>
+        {% for stock in stocks %}
         <tr>
-            <td>btc</td>
-            <td>apple</td>
-            
+            <td>{{stock.name}}</td>
+            <td>{{stock.price}}</td>
         </tr>
-
-        <tr>
-            <td>eth</td>
-            <td>tesla</td>
-           
-           
-        </tr>
-
-        <tr>
-            <td>xrp</td>
-            <td>amazon</td>
-        </tr>
-    </thead>
-
-
+        {% endfor %} 
+        
 
     </table>
-    <style>
-        #başlık{
-            display: grid;
-            place-items: Center;
 
-        }
-
-
-    </style>
-
-    <script> </script>
-
+    
 </body>
-
-
-
 </html>
