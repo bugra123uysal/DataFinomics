@@ -5,33 +5,27 @@ import numpy as np
 import seaborn as sns 
 import matplotlib.pyplot as plt 
 from flask import Flask, render_template
-
+import  json
 
 app = Flask(__name__, template_folder="templates")
-url="https://www.coingecko.com/tr"
-a= requests.get(url)
-c=BeautifulSoup(a.content , 'html.parser')
-stock=c.find_all("div", class_="tw-text-gray-700 dark:tw-text-moon-100 tw-font-semibold tw-text-sm tw-leading-5" )
-pirice=c.find_all("span", {"data-price-target": "price"} )
-
-
-
-data_stockk=[]
-for stocks , pirices in zip(stock, pirice):
-    stock_name=stocks.text.strip()
-    price_name=pirices.text.strip() 
-    data_stockk.append({"name": stock_name , "price": price_name})
-
-for item in data_stockk:
-    print(f" {item['name']},: {item['price']}")
 
 @app.route("/")  
 def home():
+    url="https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
+    a= requests.get(url)
+    c=BeautifulSoup(a.content , 'html.parser')
     
-    return render_template('hm.html', stocks=data_stockk)
+    co=json.loads(c.text)
+    coins=[]
+    for coin in co:
+
+        coins.append({"name": coin['name'], "price": coin['current_price'] })
+
+      
+
+
+    return render_template('hm.html', coins=coins  )
 
    
 if __name__ == "__main__":
     app.run(debug=True)
-
-
