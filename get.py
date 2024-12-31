@@ -3,6 +3,7 @@ import requests
 import pandas as pd 
 import numpy as np 
 import seaborn as sns 
+import yfinance as yf
 import matplotlib.pyplot as plt 
 from flask import Flask, render_template
 import  json
@@ -11,21 +12,27 @@ app = Flask(__name__, template_folder="templates")
 
 @app.route("/")  
 def home():
-    url="https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
-    a= requests.get(url)
-    c=BeautifulSoup(a.content , 'html.parser')
     
-    co=json.loads(c.text)
-    coins=[]
-    for coin in co:
-
-        coins.append({"name": coin['name'], "price": coin['current_price'] })
-
+    
+    """ coin url """
+    symbols = ["BTC-USD", "ETH-USD", "XRP-USD"]
+    crepto_dt=[]
+    for symbol in symbols:
       
 
+      tce=yf.Ticker(symbol)
+      a=tce.history(period="1mo")
 
-    return render_template('hm.html', coins=coins  )
+      b=a["Close"].iloc[-1]
+      crepto_dt.append({"name": symbol , "price": b})
 
-   
+    return render_template("hm.html", crepto=crepto_dt)
+      
+    
 if __name__ == "__main__":
     app.run(debug=True)
+
+@app.route("/stock")
+def stok():
+   
+   sym=[""]
