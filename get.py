@@ -29,10 +29,25 @@ def home():
     return render_template("hm.html", crepto=crepto_dt)
       
     
-if __name__ == "__main__":
-    app.run(debug=True)
+
 
 @app.route("/stock")
 def stok():
-   
-   sym=[""]
+   usstocks = ["AAPL", "MSFT", "GOOGL", "AMZN", "TSLA", "META", "NVDA", "BRK.B", "JPM", "V"]
+   us=[]
+
+   for abdstock in usstocks: 
+     st=yf.Ticker(abdstock)
+     hstr=st.history(period="1mo")
+     end=hstr["Close"].iloc[-1]
+     if hstr.empty:
+        us.append("hata oluştu")
+        continue
+        
+     
+     us.append({"ad": abdstock , "fıyat": end })
+   return render_template("stock.html", uasto=us )
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
