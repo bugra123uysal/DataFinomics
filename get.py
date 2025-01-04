@@ -7,7 +7,8 @@ import yfinance as yf
 import matplotlib.pyplot as plt 
 from flask import Flask, render_template
 import  json
-
+import io
+import base64
 app = Flask(__name__, template_folder="templates")
 
 @app.route("/")  
@@ -34,10 +35,15 @@ def home():
 
       b=a["Close"].iloc[-1]
       crepto_dt.append({"name": symbol , "price": b})
-
-    return render_template("hm.html", crepto=crepto_dt)
       
- 
+       
+      hh=yf.download(symbol , start="2024-01-01" , end="2025-01-04")
+      plt.plot(hh.index , hh["Close"]  )
+      plt.title("coin name: "+symbol )
+      plt.grid(True)
+      plt.show()
+     
+    return render_template("hm.html", crepto=crepto_dt)
 
 
 @app.route("/stock")
@@ -84,6 +90,8 @@ def stok():
      end=hstr["Close"].iloc[-1]   
      us.append({"ad": abdstock , "fıyat": end })
    return render_template("stock.html", uasto=us )
+
+
 
 
 
