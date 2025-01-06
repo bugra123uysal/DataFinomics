@@ -7,21 +7,61 @@
 </head>
 <body>
     <p>Hisseler sayfasına hoş geldiniz!</p>
+    <!-- portfolio  -->
+   
+    <div id="prtlo" >
+        <h2 >my portfolio</h2>
+        <input type="text" >
+        <input type="number">
+        <button>ekle</button>
+
+    </div>
+    <a href="/stock">hisse  </a>
+
+    <div id="grfk" > </div>
+ 
     <table border="1">
         <tr>         
-            <th> hisse</th>
-            <th>fiyat</th>
-
+            <th>Coin</th>
+        
         </tr>
-        {% for coin in coins %}
+        {% for crypto in crepto %}
         <tr>
-            <td>{{coin.name}}</td>
-            <td>{{coin.price}}</td>
+            <td><a onclick="ggg()" id="lnkgrf" href=""> {{ crypto.name }} : {{ crypto.price }} </a></td>
+          
+            
+          
         </tr>
-        {% endfor %} 
+        {% endfor %}
+    </table>
+    
+    
+    <script>
+
+       
+    </script>
+
+    <style>
+        /* grafik açılması için tıklanan yazı   */
+        #lnkgrf{
+            text-decoration-line: none;
+           
+        }
+
+        /* portfolio bölümü */
+        #prtlo{
+           
+            text-align: right;
+            top: 80px;
+            
+        }
+       
         
 
-    </table>
+
+    </style>
+
+    
 
     
 </body>
