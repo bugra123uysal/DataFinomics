@@ -8,26 +8,54 @@
 <body>
     <p>Hisseler sayfasına hoş geldiniz!</p>
     <!-- portfolio  -->
-   
+    
     <div id="prtlo" >
         <h2 >my portfolio</h2>
-        <input type="text" >
-        <input type="number">
-        <button>ekle</button>
+        <select name="aa" id="mmm">
+            
+            <option value="BTC-USD">BTC-USD</option>
+            <option value="ETH-USD">ETH-USD</option>
+            <option value="XRP-USD">XRP-USD</option>
+            <option value="ADA-USD">ADA-USD</option>
+            <option value="SOL-USD">SOL-USD</option>
+            <option value="DOGE-USD">DOGE-USD</option>
+            <option value="DOT-USD">DOT-USD</option>
+            <option value="BNB-USD">BNB-USD</option>   
+            <option value="LTC-USD">LTC-USD</option>
+            <option value="MATIC-USD">MATIC-USD</option>
+            <option value="SHIB-USD">SHIB-USD</option>     
+            <option value="AVAX-USD">AVAX-USD</option>
+            <option value="UNI-USD">UNI-USD</option>
+            <option value="TRX-USD">TRX-USD</option>
+            <option value="XLM-USD">XLM-USD</option>
+            <option value="ATOM-USD">ATOM-USD</option>           
+            <option value="LINK-USD">LINK-USD</option>   
+            <option value="FTT-USD">FTT-USD</option>
+            <option value="ALGO-USD">ALGO-USD</option>
+            <option value="ICP-USD">ICP-USD</option>
+     
+        </select>
+        <input type="number" id="nmr">
+        <button onclick="ad()">ekle</button>
+
+        <!-- portfoyün eklendiği  yer -->
+        <div id="prfyadd" ></div>
 
     </div>
     <a href="/stock">hisse  </a>
 
     <div id="grfk" > </div>
  
-    <table border="1">
+    <table id="tbe"  border="1">
         <tr>         
             <th>Coin</th>
+            <th>price</th>
         
         </tr>
         {% for crypto in crepto %}
         <tr>
-            <td><a onclick="ggg()" id="lnkgrf" href=""> {{ crypto.name }} : {{ crypto.price }} </a></td>
+            <td><a onclick="ggg()" id="lnkgrf" href=""> {{ crypto.name }}  </a></td>
+            <td>{{ crypto.price }}</td>
           
             
           
@@ -37,11 +65,40 @@
     
     
     <script>
+         function ad() {
+            // Seçilen coin ve adet bilgilerini al
+            const m = document.getElementById('mmm');
+            const reg=parseFloat(m.value);
 
-       
+            const aladd = m.options[m.selectedIndex].value; // Seçilen coin'in değeri
+
+            // Adet bilgisini al
+            const nn = document.getElementById("nmr").value;
+
+            // Coin ve adet bilgilerini ekranda göster
+
+            /* portföy yeri */
+            const tty=document.createElement('p');
+           
+           const vle=nn * reg 
+            const ya = document.getElementById('prfyadd');
+           tty.textContent += `name: ${aladd} : adet: ${nn} değer: ${vle}  ` ; 
+
+            ya.append(tty)
+
+        }
+    
     </script>
-
     <style>
+        body{
+            margin: 0;
+        }
+        /* tablo */
+
+        #tbe{
+            display: flex;
+            position: fixed
+        }
         /* grafik açılması için tıklanan yazı   */
         #lnkgrf{
             text-decoration-line: none;
@@ -55,14 +112,6 @@
             top: 80px;
             
         }
-       
-        
-
-
     </style>
-
-    
-
-    
 </body>
 </html>
