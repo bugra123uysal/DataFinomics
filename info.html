@@ -7,13 +7,21 @@
 </head>
 <body>
 
-    <table>
+    <table border="1">
+        
         <tr>
-        <th>ad</th>
-        <th>fiyat</th>
+        <th>name</th>
         <th>market cap</th>
         <th>volume</th>
     </tr>
+    {% for iitt in lk %}
+    <tr>
+
+     <td>{{iitt.name}}</td>
+     <td>{{iitt.marketCap  }} </td>
+     <td>{{iitt.hacım}} </td>
+    </tr>
+    {% endfor %}
 
 
 
