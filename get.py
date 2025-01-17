@@ -23,15 +23,12 @@ app = Flask(__name__, template_folder="templates")
 def home():
     
     
-    """ coin url
-     "XRP-USD", "ADA-USD", "SOL-USD",
-    "DOGE-USD", "DOT-USD", "BNB-USD", "LTC-USD", "MATIC-USD",
-    "SHIB-USD", "AVAX-USD", "UNI-USD", "TRX-USD", "XLM-USD",
-    "ATOM-USD", "LINK-USD", "FTT-USD", "ALGO-USD", "ICP-USD"
-       """
-    
     symbols = [
-    "BTC-USD", "ETH-USD"]
+    "BTC-USD", "ETH-USD", "XRP-USD", "USDT-USD", "SOL-USD", "BNB-USD", "DOGE-USD", "USDC-USD", "ADA-USD", "TRX-USD",
+    "AVAX-USD", "LINK-USD", "LTC-USD", "DOT-USD", "MATIC-USD", "SHIB-USD", "UNI-USD", "FTT-USD", "ALGO-USD", "ICP-USD",
+    
+]
+
     crepto_dt=[]
 
 
@@ -43,26 +40,16 @@ def home():
       tce=yf.Ticker(symbol)
       
 
-
-
       a=tce.history(period="1d")
-
       b=a["Close"].iloc[-1]
-      hh=yf.download(symbol , start="2024-01-01" , end="2025-01-04")
-      plt.plot(hh.index , hh["Close"]  )
-      plt.title("coin name: "+symbol )
-      plt.grid(True)
-      plt.legend()
-
-      time.sleep(10)
      
-
-      crepto_dt.append({"name": symbol , "price": b  })
       
-     
-    return render_template("hm.html"  ,  crepto=crepto_dt)
 
+  
+      crepto_dt.append({"name": symbol , "price": b })
 
+  
+    return render_template("hm.html" , crypto=crepto_dt)
 
 @app.route("/stock")
 def stok():
@@ -81,7 +68,7 @@ def stok():
 thread=threading.Thread(target=stok)
 thread.start()
 
-@app.route("/info")
+@app.route("/portfolio")
 def inf():
       
       symbols = [
@@ -93,14 +80,8 @@ def inf():
        """ info section """
        ttt=yf.Ticker(sss)
 
-       iif=ttt.info
-       """ market capt """
-       mrecpt=iif.get("marketCap", 'N/A' )
-       """ hacmi """
-       hcm=iif.get("regularMarketVolume", 'N/A')
- 
-       iinf.append({"name" : sss , "marketCap:" : mrecpt , "hacım": hcm })
-      return render_template("info.html",lk=iinf )
+
+      return render_template("portfolio.html",lk=iinf )
 
 
 if __name__ == "__main__":
