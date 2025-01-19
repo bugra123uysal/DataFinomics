@@ -8,53 +8,35 @@
 <body>
     <p>Hisseler sayfasına hoş geldiniz!</p>
     
-    <a href="/stock">hisse  </a> <br>
-    <a href="/portfolio">info (bilgi)</a>
+    <a href="/stock">hisse</a> <br>
+    <a href="/portfolio">my portfolio</a>
 
-    <div id="grfk" > </div>
- 
-    <table id="tbe"  border="1">
-        <tr>         
-            <th>Coin</th>
-            <th>price</th>
-           
-        
-        </tr>
-        {% for crypto in crepto %}
-        <tr>
-            <td><a onclick="ggg()" id="lnkgrf" href=""> {{ crypto.name }}  </a></td>
-            <td>{{ crypto.price }}</td>
-            <td></td>
-          
-        </tr>
-        {% endfor %}
-    </table>
+   
+{% for crypto in crypto %}
+<div id="sya_pge" >
+    <div id="look" >{{ crypto.name }} <br> {{ crypto.price }}  </div>
 
-
-  
+</div>
     
-    
-    <script>
-         
-    
-    </script>
+{% endfor %}
+   
     <style>
+        #look{
+            display: grid;
+            height: auto;
+            width: 90px;
+            background-color:aqua ;
+            text-align: center;
+            margin: 10px;
+            border-top-left-radius: 10%;
+            border-bottom-right-radius:10% ;
+        }
+
         body{
             margin: 0;
         }
-        /* tablo */
-
-        #tbe{
-            display: flex;
-            position: fixed
-        }
-        /* grafik açılması için tıklanan yazı   */
-        #lnkgrf{
-            text-decoration-line: none;
-           
-        }
-
-        
+     
     </style>
+   
 </body>
 </html>
