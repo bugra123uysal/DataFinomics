@@ -10,64 +10,52 @@
    <!-- portfolio  -->
     
    <div id="prtlo" >
+
     <h2 >my portfolio</h2>
+    
     <select name="aa" id="mmm">
-        
-        <option value="BTC-USD">BTC-USD</option>
-        <option value="ETH-USD">ETH-USD</option>
-        <option value="XRP-USD">XRP-USD</option>
-        <option value="ADA-USD">ADA-USD</option>
-        <option value="SOL-USD">SOL-USD</option>
-        <option value="DOGE-USD">DOGE-USD</option>
-        <option value="DOT-USD">DOT-USD</option>
-        <option value="BNB-USD">BNB-USD</option>   
-        <option value="LTC-USD">LTC-USD</option>
-        <option value="MATIC-USD">MATIC-USD</option>
-        <option value="SHIB-USD">SHIB-USD</option>     
-        <option value="AVAX-USD">AVAX-USD</option>
-        <option value="UNI-USD">UNI-USD</option>
-        <option value="TRX-USD">TRX-USD</option>
-        <option value="XLM-USD">XLM-USD</option>
-        <option value="ATOM-USD">ATOM-USD</option>           
-        <option value="LINK-USD">LINK-USD</option>   
-        <option value="FTT-USD">FTT-USD</option>
-        <option value="ALGO-USD">ALGO-USD</option>
-        <option value="ICP-USD">ICP-USD</option>
- 
+        {% for nnos in sonn %}
+        <option value="{{nnos.name}}" data-price="{{nnos.pricee}}" >{{nnos.name}}</option>
+        {%endfor %}
     </select>
-    <input type="number" id="nmr">
-    <button onclick="ad()">ekle</button>
+    <input type="number" id="nmr" placeholder="miktar" >
+    <button id="el" onclick="ad()">ekle</button>
 
     <!-- portfoyün eklendiği  yer -->
     <div id="prfyadd" ></div>
 
 
-</div>
+</div> 
+
+
 
 <script>
     function ad() {
-            // Seçilen coin ve adet bilgilerini al
-            const m = document.getElementById('mmm');
-            const reg=parseFloat(m.value);
-
-            const aladd = m.options[m.selectedIndex].value; // Seçilen coin'in değeri
-
+             const selectElement = document.getElementById('mmm');
+             const selectedOption=selectElement.options[selectElement.selectedIndex];
+             const nm =selectedOption.value;
+             const rgeaw=parseFloat(selectedOption.getAttribute('data-price'));
+            
             // Adet bilgisini al
-            const nn = document.getElementById("nmr").value;
+            const nn = parseFloat( document.getElementById("nmr").value);
 
-            // Coin ve adet bilgilerini ekranda göster
+            if(isNaN(nn) || nn <= 0 ){
+                alert("tekrar deneyiniz");
+                return;
+            }
+            const vle=nn * rgeaw;
+
+           
 
             /* portföy yeri */
-            const tty=document.createElement('p');
-           
-           const vle=nn * reg 
-            const ya = document.getElementById('prfyadd');
-           tty.textContent += `name: ${aladd} : adet: ${nn} değer: ${vle}  ` ; 
+            const ya = document.getElementById("prfyadd");
+            const ttrey=document.createElement("p");
+             // Coin ve adet bilgilerini ekranda göster
+             ttrey.textContent = `Name: ${nm}, Amount: ${nn}, Value: ${vle.toFixed(2)} USD`;
 
-            ya.append(tty)
+             ya.append(ttrey);
 
         }
-
 
 
 </script>
@@ -76,11 +64,19 @@
     /* portfolio bölümü */
     #prtlo{
            
-           text-align: right;
-           top: 80px;
+           text-align: center;
+           margin-top: 50px;
            
        }
+
+       #nmr{
+        margin-left: 10px;
+       }
+
+       #el{
+        margin-left: 10px;
+       }
 </style>
-    
+
 </body>
 </html>
