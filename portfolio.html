@@ -24,12 +24,18 @@
     <!-- portfoyün eklendiği  yer -->
     <div id="prfyadd" ></div>
 
+    <!-- graik -->
+     <div id="plotpi" ></div>
+     
 
 </div> 
 
 
-
+<script src="https://cdn.plot.ly/plotly-latest.min.js" ></script>
 <script>
+    let labels= [];
+    let values= [];
+
     function ad() {
              const selectElement = document.getElementById('mmm');
              const selectedOption=selectElement.options[selectElement.selectedIndex];
@@ -45,8 +51,6 @@
             }
             const vle=nn * rgeaw;
 
-           
-
             /* portföy yeri */
             const ya = document.getElementById("prfyadd");
             const ttrey=document.createElement("p");
@@ -55,8 +59,24 @@
 
              ya.append(ttrey);
 
-        }
+              /* grafik */
+              const index=labels.indexOf(nm);
+              if(index === -1){
+                labels.push(nm);
+                values.push(nn);
 
+              } else{
+                /* coin varsa değerini güncelleme */
+                values[index] +=nn;
+              }
+
+              const layout={title: " pie grafick "}
+              const data =[{labels: labels , values: values , type:"pie"}];
+              Plotly.newPlot("plotpi", data , layout);
+
+             
+        }
+       
 
 </script>
 
