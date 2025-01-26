@@ -12,18 +12,29 @@
 
     <body>
       
-
+        <div id="giclm" > 
         {% for  sto in uasto %}
+        
             <div id="pag">{{sto.ad}}  <br> {{sto.fıyat}}  </div>
+        
             
            
   
         {% endfor %}
+    </div>
     </body>
     
     <style>
-        #pag{
+        #giclm{
             display: grid;
+            /* kolon sayısı */
+            grid-template-columns:repeat(3, 1fr);
+
+            gap: 10px;
+
+        }
+        #pag{
+            
             height: auto;
             width: 90px;
             background-color:aqua ;
@@ -31,8 +42,14 @@
             margin: 10px;
             border-top-left-radius: 10%;
             border-bottom-right-radius:10% ;
+            
         }
 
     </style>
 </body>
 </html>
+
+
+
+
+
