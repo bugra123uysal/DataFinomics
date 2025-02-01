@@ -11,32 +11,74 @@
     <a href="/stock">hisse</a> <br>
     <a href="/portfolio">my portfolio</a>
 
+ <!--  us=usabd ,bist=trist -->
    
-{% for crypto in crypto %}
-<div id="sya_pge" >
-    <div id="look" >{{ crypto.name }} <br> {{ crypto.price }}  </div>
 
+<div id="sya_pge" >
+    {% for item in crypto %}
+    <div class="ttt" >{{ item.name }} <br> {{ item.price }}     </div>
+  
 </div>
-    
+
+
+{% endfor %} 
+
+
+<div id="amerı" >
+{% for item in us  %}
+<div class="aa" > {{item.name}} <br> {{item.price}} </div>
+</div>
 {% endfor %}
-   
+
+<div id="turk" >  
+{% for item in bist  %}
+<div class="look" >{{item.name}} <br> {{item.price}} </div>
+</div>
+{% endfor %}
+
+
+<script>
+
+
+
+
+ 
+</script>
+
     <style>
-        #look{
+
+         
+
+
+/* kripto */
+        #sya_pge , #amerı , #turk{
             display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 10px;
+            border: 1px , black;
             height: auto;
-            width: 90px;
+            width: auto;
+        }
+        
+
+       
+
+
+        .look, .aa, .ttt{
+            height: auto;
+            width: auto;
             background-color:aqua ;
             text-align: center;
             margin: 10px;
             border-top-left-radius: 10%;
             border-bottom-right-radius:10% ;
+            border:1px black ;
+
+
         }
 
-        body{
-            margin: 0;
-        }
-     
+        
     </style>
-   
+ 
 </body>
 </html>
