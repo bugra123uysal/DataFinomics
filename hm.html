@@ -4,81 +4,119 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hisseler</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <p>Hisseler sayfasına hoş geldiniz!</p>
     
-    <a href="/stock">hisse</a> <br>
-    <a href="/portfolio">my portfolio</a>
 
- <!--  us=usabd ,bist=trist -->
-   
+        <!-- Kripto Paralar -->
+        <div class="group mb-4">
+            <h2 class="text-center text-info">Kripto Paralar</h2>
+            <div class="stock-container">
+                {% for item in crypto %}
+                <div class="stock-card">{{ item.name }} <br> {{ item.price }}$</div>
+                {% endfor %}
+            </div>
+        </div>
 
-<div id="sya_pge" >
-    {% for item in crypto %}
-    <div class="ttt" >{{ item.name }} <br> {{ item.price }}     </div>
-  
-</div>
+        <!-- ABD Hisseleri -->
+        <div class="group mb-4">
+            <h2 class="text-center text-info">🇺🇸 ABD Hisseleri</h2>
+            <div class="stock-container">
+                {% for item in us %}
+                <div class="stock-card">{{ item.name }} <br> {{ item.price }}$</div>
+                {% endfor %}
+            </div>
+        </div>
 
+        <!-- Türk Hisseleri -->
+        <div class="group mb-4">
+            <h2 class="text-center text-info">🇹🇷 Türk Hisseleri</h2>
+            <div class="stock-container">
+                {% for item in bist %}
+                <div class="stock-card">{{ item.name }} <br> {{ item.price }}₺</div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 
-{% endfor %} 
-
-
-<div id="amerı" >
-{% for item in us  %}
-<div class="aa" > {{item.name}} <br> {{item.price}} </div>
-</div>
-{% endfor %}
-
-<div id="turk" >  
-{% for item in bist  %}
-<div class="look" >{{item.name}} <br> {{item.price}} </div>
-</div>
-{% endfor %}
-
-
-<script>
-
-
-
-
- 
-</script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <style>
-
-         
-
-
-/* kripto */
-        #sya_pge , #amerı , #turk{
-            display: grid;
-            grid-template-columns: repeat(3,1fr);
-            gap: 10px;
-            border: 1px , black;
-            height: auto;
-            width: auto;
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+            padding: 20px;
         }
-        
 
-       
+        h1 {
+            font-weight: 600;
+            color: #333;
+        }
 
+        .group {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
 
-        .look, .aa, .ttt{
-            height: auto;
-            width: auto;
-            background-color:aqua ;
+        .stock-card {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            width: 150px;
             text-align: center;
             margin: 10px;
-            border-top-left-radius: 10%;
-            border-bottom-right-radius:10% ;
-            border:1px black ;
-
-
+            transition: 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        
+        .stock-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 20px;
+            margin: 0 10px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
+        }
+
+        .stock-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
     </style>
- 
 </body>
 </html>
