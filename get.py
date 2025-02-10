@@ -1,27 +1,16 @@
-from bs4 import BeautifulSoup 
 import requests  
-import pandas as pd 
-import numpy as np 
-import seaborn as sns 
 import yfinance as yf
-import matplotlib.pyplot as plt 
 from flask import Flask, render_template
-from flask_caching import Cache
 import os
 
-config={
-   "CACHE_TYPE": "SimpleCache",# BASİT ÖN BELLEK 
-   "CACHE_DEFAULT_TIMEOUT": 300 # ÖNBELLEKDE KALMA SÜRESİ
-}
+
 
 
 
 app = Flask(__name__, template_folder="templates")
-app.config.from_mapping(config) # ön belleği uygulamaya ekleyin
-cache=Cache(app)
+
 
 @app.route("/")  
-@cache.cached(timeout=300)  
 def home():
     
     
@@ -63,27 +52,7 @@ def home():
     return render_template("hm.html" , crypto=crypto_data , us=usabd ,bist=trist )
     
 
-@app.route("/portfolio")
-@cache.cached(timeout=300)
-def inf():
-      
-      symbols = [
-    "BTC-USD", "ETH-USD", "BTC-USD", "ETH-USD", "XRP-USD", "USDT-USD", "SOL-USD", "BNB-USD", "DOGE-USD", "USDC-USD", "ADA-USD", "TRX-USD",
-    "AVAX-USD", "LINK-USD", "LTC-USD", "DOT-USD", "MATIC-USD", "SHIB-USD", "UNI-USD", "FTT-USD", "ALGO-USD", "ICP-USD"]
-      
-      iinf=[]
-      
-      for sss in  symbols  :
-       
-       """ info section """
-       ttt=yf.Ticker(sss)
-       rf=ttt.history(period="1d")
-       ydes=rf["Close"].iloc[-1]
 
-       iinf.append({"name":sss  ,"pricee": ydes})
-       
-
-      return render_template("portfolio.html", sonn=iinf )
 
 if __name__ == "__main__":
     app.run(debug=True)
